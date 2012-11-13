@@ -105,7 +105,7 @@
 		</div>
 		<h3>
 			<a href="#">Demandes en attentes de confirmations par l'élève
-				(${etatsup1000})</a>
+				(${MODIFPROF})</a>
 		</h3>
 		<div id="demo">
 			<form:form modelAttribute="formListIdDctap" action="sendId"
@@ -128,28 +128,28 @@
 							<c:if test="${dctap.modifieeDateProf or dctap.modifieeDureeProf or dctap.modifieeApProf}">
 								<tr>
 									<td>${dctap.eleve.nom} ${dctap.eleve.prenom}</td>
-									<c:if test="${dctap.dateModifiee}">
+									<c:if test="${dctap.modifieeDateProf}">
 										<td class="isUpdate">${dctap.dateAction}</td>
 									</c:if>
-									<c:if test="${!dctap.dateModifiee}">
+									<c:if test="${!dctap.modifieeDateProf}">
 										<td>${dctap.dateAction}</td>
 									</c:if>
-									<c:if test="${dctap.dureeModifiee}">
+									<c:if test="${dctap.modifieeDureeProf}">
 										<td class="isUpdate"><fmt:formatNumber
 												value="${(dctap.minutes/60)-((dctap.minutes%60)/60)}"
 												pattern="#00" />h<fmt:formatNumber
 												value="${dctap.minutes%60}" pattern="#00" /></td>
 									</c:if>
-									<c:if test="${!dctap.dureeModifiee}">
+									<c:if test="${!dctap.modifieeDureeProf}">
 										<td><fmt:formatNumber
 												value="${(dctap.minutes/60)-((dctap.minutes%60)/60)}"
 												pattern="#00" />h<fmt:formatNumber
 												value="${dctap.minutes%60}" pattern="#00" /></td>
 									</c:if>
-									<c:if test="${dctap.apModifiee}">
+									<c:if test="${dctap.modifieeApProf}">
 										<td class="isUpdate">${dctap.accPers.nom}</td>
 									</c:if>
-									<c:if test="${!dctap.apModifiee}">
+									<c:if test="${!dctap.modifieeApProf}">
 										<td>${dctap.accPers.nom}</td>
 									</c:if>
 									<td><a
