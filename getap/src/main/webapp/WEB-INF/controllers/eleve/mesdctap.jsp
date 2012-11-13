@@ -3,7 +3,7 @@
 <%@page import="org.ldv.sio.getap.app.service.impl.DBManagerGeTAP"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
-<h3 class="titre3">Mes demandes de validations</h3>
+<h3 class="titre3">Mes demandes de validation</h3>
 
 <c:if test="${empty mesdctaps}">
 	Il n'y a encore aucune demande. 
@@ -16,17 +16,17 @@
 	<c:set var="timeAtt" value="0" />
 	<table class="legend2">
 		<tr>
-			<td><img src="../../images/valid.png" width="24" height="24"/> : Confirmer</td>
-			<td><img src="../../images/modif.png" width="24" height="24"/> : Modifier</td>
-			<td><img src="../../images/suppr.png" width="24" height="24"/> : Supprimer</td>
-			<td><img src="../../images/refuseModif.png" width="24" height="24"/> : Rejeter</td>
+			<td><img src="../../images/valid.png" width="24" height="24" align="absmiddle"/> Confirmer</td>
+			<td><img src="../../images/modif.png" width="24" height="24" align="absmiddle"/> Modifier</td>
+			<td><img src="../../images/suppr.png" width="24" height="24" align="absmiddle"/> Supprimer</td>
+			<td><img src="../../images/refuseModif.png" width="24" height="24" align="absmiddle"/> Rejeter</td>
 		</tr>
 	</table>
 	<h5 style="position: relative; top: 35px;">Demandes de validation
 		en cours</h5>
 	<div id="accordion">
 		<h3>
-			<a href="#">Demandes non traitées (${etat0 + etat4})</a>
+			<a href="#">Demandes non traitées (${INITIAL + MODIFIEE_ELEVE})</a>
 		</h3>
 		<div id="demo">
 			<table class="display dataTable">
@@ -42,7 +42,7 @@
 				</thead>
 				<tbody>
 					<c:forEach items="${mesdctaps}" var="dctap">
-						<c:if test="${dctap.etat == 0 or dctap.etat == 4 }">
+						<c:if test="${dctap.etatInitial or dctap.modifieeEleve }">
 							<tr>
 								<td>${dctap.prof.nom} ${dctap.prof.prenom}</td>
 								<td>${dctap.dateAction}</td>
@@ -69,7 +69,7 @@
 			</table>
 		</div>
 		<h3>
-			<a href="#">Demandes modifiées par le professeur (${etatsup1000})</a>
+			<a href="#">Demandes modifiées par le professeur (${MODIFPROF})</a>
 		</h3>
 		<div id="demo">
 			<table class="display dataTable">
@@ -85,33 +85,33 @@
 				</thead>
 				<tbody>
 					<c:forEach items="${mesdctaps}" var="dctap">
-						<c:if test="${dctap.etat > 1023}">
+						<c:if test="${dctap.modifieeDateProf or dctap.modifieeDureeProf or dctap.modifieeApProf}">
 							<tr>
 								<td>${dctap.prof.nom} ${dctap.prof.prenom}</td>
-								<c:if test="${dctap.dateModifiee}">
+								<c:if test="${dctap.modifieeDateProf}">
 									<td class="isUpdate">${dctap.dateAction}</td>
 								</c:if>
-								<c:if test="${!dctap.dateModifiee}">
+								<c:if test="${!dctap.modifieeDateProf}">
 									<td>${dctap.dateAction}</td>
 								</c:if>
-								<c:if test="${dctap.dureeModifiee}">
+								<c:if test="${dctap.modifieeDureeProf}">
 									<td class="isUpdate"><fmt:formatNumber
 										value="${(dctap.minutes/60)-((dctap.minutes%60)/60)}"
 										pattern="#00" />h<fmt:formatNumber
 										value="${dctap.minutes%60}"
 										pattern="#00" /></td>
 								</c:if>
-								<c:if test="${!dctap.dureeModifiee}">
+								<c:if test="${!dctap.modifieeDureeProf}">
 									<td><fmt:formatNumber
 										value="${(dctap.minutes/60)-((dctap.minutes%60)/60)}"
 										pattern="#00" />h<fmt:formatNumber
 										value="${dctap.minutes%60}"
 										pattern="#00" /></td>
 								</c:if>
-								<c:if test="${dctap.apModifiee}">
+								<c:if test="${dctap.modifieeApProf}">
 									<td class="isUpdate">${dctap.accPers.nom}</td>
 								</c:if>
-								<c:if test="${!dctap.apModifiee}">
+								<c:if test="${!dctap.modifieeApProf}">
 									<td>${dctap.accPers.nom}</td>
 								</c:if>
 								<td><a
@@ -136,7 +136,7 @@
 	<h5>Demandes terminées</h5>
 	<div id="accordion2">
 		<h3>
-			<a href="#">Demandes validées (${etat1 + etat32})</a>
+			<a href="#">Demandes validées (${ACCEPTEE_ELEVE + VALIDEE_PROF})</a>
 		</h3>
 		<div id="demo">
 			<table class="display dataTable">
@@ -150,7 +150,7 @@
 				</thead>
 				<tbody>
 					<c:forEach items="${mesdctaps}" var="dctap">
-						<c:if test="${dctap.etat == 1 or dctap.etat == 32 }">
+						<c:if test="${dctap.accepteeEleve or dctap.valideeProf }">
 							<tr>
 								<td>${dctap.prof.nom} ${dctap.prof.prenom}</td>
 								<td>${dctap.dateAction}</td>
@@ -167,7 +167,7 @@
 			</table>
 		</div>
 		<h3>
-			<a href="#">Demandes refusées par le professeur (${etat64})</a>
+			<a href="#">Demandes refusées par le professeur (${REFUSEE_PROF})</a>
 		</h3>
 		<div id="demo">
 			<table class="display dataTable">
@@ -181,7 +181,7 @@
 				</thead>
 				<tbody>
 					<c:forEach items="${mesdctaps}" var="dctap">
-						<c:if test="${dctap.etat == 64 }">
+						<c:if test="${dctap.refuseeProf }">
 							<tr>
 								<td>${dctap.prof.nom} ${dctap.prof.prenom}</td>
 								<td>${dctap.dateAction}</td>
@@ -198,7 +198,7 @@
 			</table>
 		</div>
 		<h3>
-			<a href="#">Vos demandes refusées (${etat2})</a>
+			<a href="#">Vos demandes refusées (${REJETEE_ELEVE})</a>
 		</h3>
 		<div id="demo">
 			<table class="display dataTable">
@@ -212,7 +212,7 @@
 				</thead>
 				<tbody>
 					<c:forEach items="${mesdctaps}" var="dctap">
-						<c:if test="${dctap.etat == 2}">
+						<c:if test="${dctap.rejeteeEleve}">
 							<tr>
 								<td>${dctap.prof.nom} ${dctap.prof.prenom}</td>
 								<td>${dctap.dateAction}</td>
@@ -231,18 +231,18 @@
 	</div>
 		<c:forEach items="${mesdctaps}" var="dctap">
 		<c:set var="timeTT" value="${timeTT + dctap.minutes}" />
-		<c:if test="${dctap.etat == 1 || dctap.etat == 32 }">
+		<c:if test="${dctap.accepteeEleve || dctap.valideeProf }">
 			<c:set var="timeVal" value="${timeVal + dctap.minutes}" />
 		</c:if>
 	</c:forEach>
 	<c:forEach items="${mesdctaps}" var="dctap">
-		<c:if test="${dctap.etat == 2 || dctap.etat == 64 || dctap.etat == 8}">
+		<c:if test="${dctap.rejeteeEleve || dctap.refuseeProf || dctap.annuleeEleve}">
 			<c:set var="timeRef" value="${timeRef + dctap.minutes}" />
 		</c:if>
 	</c:forEach>
 	<c:forEach items="${mesdctaps}" var="dctap">
 		<c:if
-			test="${dctap.etat == 0 || dctap.etat == 4 || dctap.etat > 1023 }">
+			test="${dctap.etatInitial || dctap.modifieeEleve || dctap.modifieeDateProf or dctap.modifieeDureeProf or dctap.modifieeApProf}">
 			<c:set var="timeAtt" value="${timeAtt + dctap.minutes}" />
 		</c:if>
 	</c:forEach>
