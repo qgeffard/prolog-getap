@@ -74,7 +74,7 @@ public class ProfInterController {
 		model.addAttribute("ACCEPTEE_ELEVE", manager.getAllDVCTAPByEtat(1, id));
 		model.addAttribute("REJETEE_ELEVE", manager.getAllDVCTAPByEtat(2, id));
 		model.addAttribute("MODIFIEE_ELEVE", manager.getAllDVCTAPByEtat(4, id));
-
+		model.addAttribute("ANNULEE_ELEVE", manager.getAllDVCTAPByEtat(8, id));
 		model.addAttribute("VALIDEE_PROF", manager.getAllDVCTAPByEtat(32, id));
 		model.addAttribute("REFUSEE_PROF", manager.getAllDVCTAPByEtat(64, id));
 		model.addAttribute("MODIFPROF", manager.getAllDVCTAPModifByEtat(id));
