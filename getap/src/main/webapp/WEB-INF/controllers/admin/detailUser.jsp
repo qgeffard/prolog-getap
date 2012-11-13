@@ -118,7 +118,7 @@
 							<c:if test="${dctap.annuleeEleve}">
 								<td>Annulé</td>
 							</c:if>
-							<c:if test="${ddctap.refuseeProf}">
+							<c:if test="${dctap.refuseeProf}">
 								<td>Refus prof</td>
 							</c:if>
 						</tr>
