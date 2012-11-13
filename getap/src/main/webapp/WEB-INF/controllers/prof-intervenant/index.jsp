@@ -32,12 +32,12 @@
 <c:if test="${not empty listdctaps}">
 	<table class="legend2">
 		<tr>
-			<td><img src="../../images/valid.png" width="24" height="24" />
-				: Valider</td>
+			<td><img src="../../images/valid.png" width="24" height="24"
+				align="absmiddle" /> Valider</td>
 			<td><img src="../../images/modifValid.png" width="22"
-				height="22" /> : Modifier</td>
-			<td><img src="../../images/suppr.png" width="24" height="24" />
-				: Refuser</td>
+				height="22" align="absmiddle" /> Modifier</td>
+			<td><img src="../../images/suppr.png" width="24" height="24"
+				align="absmiddle" /> Refuser</td>
 		</tr>
 	</table>
 	<h5 style="position: relative; top: 35px;">Demandes de validation
@@ -61,7 +61,8 @@
 							<th></th>
 							<th></th>
 							<th></th>
-							<th><input name="tout" type="checkbox" onClick="this.value=check(this.form);"/></th>
+							<th><input name="tout" type="checkbox"
+								onClick="this.value=check(this.form);" /></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -120,12 +121,14 @@
 							<th>Type d'aide</th>
 							<th></th>
 							<th></th>
-							<th><input name="tout" type="checkbox" onClick="this.value=check(this.form);"/></th>
+							<th><input name="tout" type="checkbox"
+								onClick="this.value=check(this.form);" /></th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach items="${listdctaps}" var="dctap">
-							<c:if test="${dctap.modifieeDateProf or dctap.modifieeDureeProf or dctap.modifieeApProf}">
+							<c:if
+								test="${dctap.modifieeDateProf or dctap.modifieeDureeProf or dctap.modifieeApProf}">
 								<tr>
 									<td>${dctap.eleve.nom} ${dctap.eleve.prenom}</td>
 									<c:if test="${dctap.modifieeDateProf}">
