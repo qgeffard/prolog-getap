@@ -33,7 +33,7 @@
 			
 		<script type="text/javascript" src="../../styles/javascript/prefix.js"></script>
 		<script type="text/javascript" src="../../styles/javascript/fonctions.js"></script>	
-        <script type="text/javascript" src="../../styles/javascript/jquery1.8.2.js"></script>
+        <script type="text/javascript" src="../../styles/javascript/jquery-1.7.2.min.js"></script>
 		<script type="text/javascript" src="../../styles/javascript/jquery.dataTables.min.js"></script>
 		<script type="text/javascript" src="../../styles/javascript/jquery-ui.verymin.js"></script>
 		<!-- <script src="http://code.jquery.com/ui/1.8.20/jquery-ui.min.js" type="text/javascript"></script>-->		
