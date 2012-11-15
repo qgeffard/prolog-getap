@@ -1,6 +1,9 @@
 package org.ldv.sio.getap.app;
 
-import java.sql.Date;
+import java.util.Date;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Demande de validation d'un temps d'accompagnement personnalisé
@@ -21,6 +24,9 @@ public class DemandeValidationConsoTempsAccPers {
 	private static final int DUREE_MODIFIEE = 2048;
 	private static final int AP_MODIFIEE = 4096;
 
+	private final Logger logger = LoggerFactory
+			.getLogger(DemandeValidationConsoTempsAccPers.class);
+
 	/**
 	 * Identifiant de la DCTAP
 	 */
@@ -33,7 +39,7 @@ public class DemandeValidationConsoTempsAccPers {
 	 * Date de réalisation de l'accompagnement
 	 * 
 	 */
-	private java.sql.Date dateAction;
+	private Date dateAction;
 	/**
 	 * Nombre de minutes d'accompagnement personnalisé à valider
 	 */
@@ -211,7 +217,7 @@ public class DemandeValidationConsoTempsAccPers {
 	}
 
 	public java.sql.Date getDateAction() {
-		return dateAction;
+		return (java.sql.Date) dateAction;
 	}
 
 	public void setDateAction(java.sql.Date date) {
@@ -315,6 +321,9 @@ public class DemandeValidationConsoTempsAccPers {
 				&& !this.isValideeProf()) {
 			this.etat = this.etat | VALIDEE_PROF;
 			this.etat = this.etat | FIN_VIE;
+
+			Date dateLog = new Date();
+			logger.info("VALIDEE PAR PROF : " + dateLog + " " + this.toString());
 		} else {
 			throw new DVCTAPException(errorReporting());
 		}
@@ -331,6 +340,9 @@ public class DemandeValidationConsoTempsAccPers {
 				&& !this.isRefuseeProf()) {
 			this.etat = this.etat | REFUSEE_PROF;
 			this.etat = this.etat | FIN_VIE;
+
+			Date dateLog = new Date();
+			logger.info("REFUSEE PAR PROF : " + dateLog + " " + this.toString());
 		} else {
 			throw new DVCTAPException(errorReporting());
 		}
@@ -348,6 +360,11 @@ public class DemandeValidationConsoTempsAccPers {
 				&& !this.isModifieeDateProf() && !this.isAnnuleeEleve()) {
 			this.etat = this.etat | ANNULEE_ELEVE;
 			this.etat = this.etat | FIN_VIE;
+
+			Date dateLog = new Date();
+			logger.info("ANNULEE PAR ELEVE : " + dateLog + " "
+					+ this.toString());
+
 		} else {
 			throw new DVCTAPException(errorReporting());
 		}
@@ -364,6 +381,11 @@ public class DemandeValidationConsoTempsAccPers {
 				&& !this.isModifieeApProf() && !this.isModifieeDureeProf()
 				&& !this.isModifieeDateProf() && !this.isAnnuleeEleve()) {
 			this.etat = this.etat | MODIFIEE_ELEVE;
+
+			Date dateLog = new Date();
+			logger.info("MODIFICATION PAR ELEVE : " + dateLog + " "
+					+ this.toString());
+
 		} else {
 			throw new DVCTAPException(errorReporting());
 		}
@@ -381,6 +403,11 @@ public class DemandeValidationConsoTempsAccPers {
 				&& !this.isAnnuleeEleve() && !this.isRefuseeProf()
 				&& !this.isValideeProf()) {
 			this.etat = this.etat | DATE_MODIFIEE;
+
+			Date dateLog = new Date();
+			logger.info("MODIFICATION DATE PAR PROF : " + dateLog + " "
+					+ this.toString());
+
 		} else {
 			throw new DVCTAPException(errorReporting());
 		}
@@ -398,6 +425,11 @@ public class DemandeValidationConsoTempsAccPers {
 				&& !this.isAnnuleeEleve() && !this.isRefuseeProf()
 				&& !this.isValideeProf()) {
 			this.etat = this.etat | DUREE_MODIFIEE;
+
+			Date dateLog = new Date();
+			logger.info("MODIFICATION DUREE PAR PROF : " + dateLog + " "
+					+ this.toString());
+
 		} else {
 			throw new DVCTAPException(errorReporting());
 		}
@@ -415,6 +447,11 @@ public class DemandeValidationConsoTempsAccPers {
 				&& !this.isAnnuleeEleve() && !this.isRefuseeProf()
 				&& !this.isValideeProf()) {
 			this.etat = this.etat | AP_MODIFIEE;
+
+			Date dateLog = new Date();
+			logger.info("MODIFICATION AP PAR PROF : " + dateLog + " "
+					+ this.toString());
+
 		} else {
 			throw new DVCTAPException(errorReporting());
 		}
@@ -437,6 +474,11 @@ public class DemandeValidationConsoTempsAccPers {
 						.isModifieeDureeProf())) {
 			this.etat = this.etat | REJETEE_ELEVE;
 			this.etat = this.etat | FIN_VIE;
+
+			Date dateLog = new Date();
+			logger.info("REJETER PAR ELEVE : " + dateLog + " "
+					+ this.toString());
+
 		} else {
 			throw new DVCTAPException(errorReporting());
 		}
@@ -459,6 +501,10 @@ public class DemandeValidationConsoTempsAccPers {
 						.isModifieeDureeProf())) {
 			this.etat = this.etat | ACCEPTEE_ELEVE;
 			this.etat = this.etat | FIN_VIE;
+
+			Date dateLog = new Date();
+			logger.info("ACCEPTEE PAR ELEVE : " + dateLog + " "
+					+ this.toString());
 		} else {
 			throw new DVCTAPException(errorReporting());
 		}
@@ -466,10 +512,11 @@ public class DemandeValidationConsoTempsAccPers {
 
 	@Override
 	public String toString() {
-		return "DemandeConsoTempsAccPers [id=" + id + ", anneeScolaire="
-				+ anneeScolaire + ", dateAction=" + dateAction + ", minutes="
-				+ minutes + ", prof=" + prof + ", accPers=" + accPers
-				+ ", eleve=" + eleve + ", etat=" + etat + "]";
+		return "DemandeValidationConsoTempsAccPers [id=" + id
+				+ ", anneeScolaire=" + anneeScolaire + ", dateAction="
+				+ dateAction + ", minutes=" + minutes + ", prof=" + prof
+				+ ", accPers=" + accPers + ", eleve=" + eleve + ", etat="
+				+ etat + "]";
 	}
 
 	/*
@@ -506,4 +553,5 @@ public class DemandeValidationConsoTempsAccPers {
 			return false;
 		return true;
 	}
+
 }

@@ -73,4 +73,11 @@ public class AccPersonalise {
 		this.idUser = idUser;
 	}
 
+	@Override
+	public String toString() {
+		return "AccPersonalise [id=" + id + ", nom=" + nom + ", origineEtat="
+				+ origineEtat + ", idUser=" + idUser + ", count=" + count
+				+ ", idEleve=" + idEleve + "]";
+	}
+
 }
