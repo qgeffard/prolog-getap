@@ -104,7 +104,7 @@
 		<tbody>
 			<c:forEach items="${sesDCTAPeleve}" var="dctap">
 				<c:if
-					test="${dctap.etatInitial || dctap.modifieeEleve || dctap.modifieeDateProf || dctap.modifieeDureeProf || dctap.modifieeApProf }">
+					test="${(dctap.etatInitial || dctap.modifieeEleve || dctap.modifieeDateProf || dctap.modifieeDureeProf || dctap.modifieeApProf) && !dctap.finDeVie }">
 					<tr>
 						<td>${dctap.prof.nom} ${dctap.prof.prenom}</td>
 						<td>${dctap.accPers.nom}</td>

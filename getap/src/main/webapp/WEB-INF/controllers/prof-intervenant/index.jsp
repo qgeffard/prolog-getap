@@ -128,7 +128,7 @@
 					<tbody>
 						<c:forEach items="${listdctaps}" var="dctap">
 							<c:if
-								test="${dctap.modifieeDateProf or dctap.modifieeDureeProf or dctap.modifieeApProf}">
+								test="${(dctap.modifieeDateProf or dctap.modifieeDureeProf or dctap.modifieeApProf) && !dctap.finDeVie}">
 								<tr>
 									<td>${dctap.eleve.nom} ${dctap.eleve.prenom}</td>
 									<c:if test="${dctap.modifieeDateProf}">

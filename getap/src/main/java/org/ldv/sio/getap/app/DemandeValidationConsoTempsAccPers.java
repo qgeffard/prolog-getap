@@ -16,6 +16,7 @@ public class DemandeValidationConsoTempsAccPers {
 	private static final int ANNULEE_ELEVE = 8;
 	private static final int VALIDEE_PROF = 32;
 	private static final int REFUSEE_PROF = 64;
+	private static final int FIN_VIE = 128;
 	private static final int DATE_MODIFIEE = 1024;
 	private static final int DUREE_MODIFIEE = 2048;
 	private static final int AP_MODIFIEE = 4096;
@@ -98,11 +99,7 @@ public class DemandeValidationConsoTempsAccPers {
 	 * @return un booléen correspondant à cet état
 	 */
 	public boolean isEtatInitial() {
-		boolean bool = false;
-		if (this.etat == INITIAL) {
-			bool = true;
-		}
-		return bool;
+		return this.etat == INITIAL;
 	}
 
 	/**
@@ -111,11 +108,7 @@ public class DemandeValidationConsoTempsAccPers {
 	 * @return un booléen correspondant à cet état
 	 */
 	public boolean isValideeProf() {
-		boolean bool = false;
-		if ((this.etat & VALIDEE_PROF) != 0) {
-			bool = true;
-		}
-		return bool;
+		return (this.etat & VALIDEE_PROF) != 0;
 	}
 
 	/**
@@ -124,11 +117,7 @@ public class DemandeValidationConsoTempsAccPers {
 	 * @return un booléen correspondant à cet état
 	 */
 	public boolean isRefuseeProf() {
-		boolean bool = false;
-		if ((this.etat & REFUSEE_PROF) != 0) {
-			bool = true;
-		}
-		return bool;
+		return (this.etat & REFUSEE_PROF) != 0;
 	}
 
 	/**
@@ -137,11 +126,7 @@ public class DemandeValidationConsoTempsAccPers {
 	 * @return un booléen correspondant à cet état
 	 */
 	public boolean isAnnuleeEleve() {
-		boolean bool = false;
-		if ((this.etat & ANNULEE_ELEVE) != 0) {
-			bool = true;
-		}
-		return bool;
+		return (this.etat & ANNULEE_ELEVE) != 0;
 	}
 
 	/**
@@ -150,11 +135,7 @@ public class DemandeValidationConsoTempsAccPers {
 	 * @return un booléen correspondant à cet état
 	 */
 	public boolean isModifieeEleve() {
-		boolean bool = false;
-		if ((this.etat & MODIFIEE_ELEVE) != 0) {
-			bool = true;
-		}
-		return bool;
+		return (this.etat & MODIFIEE_ELEVE) != 0;
 	}
 
 	/**
@@ -163,11 +144,7 @@ public class DemandeValidationConsoTempsAccPers {
 	 * @return un booléen correspondant à cet état
 	 */
 	public boolean isAccepteeEleve() {
-		boolean bool = false;
-		if ((this.etat & ACCEPTEE_ELEVE) != 0) {
-			bool = true;
-		}
-		return bool;
+		return (this.etat & ACCEPTEE_ELEVE) != 0;
 	}
 
 	/**
@@ -176,11 +153,7 @@ public class DemandeValidationConsoTempsAccPers {
 	 * @return un booléen correspondant à cet état
 	 */
 	public boolean isRejeteeEleve() {
-		boolean bool = false;
-		if ((this.etat & REJETEE_ELEVE) != 0) {
-			bool = true;
-		}
-		return bool;
+		return (this.etat & REJETEE_ELEVE) != 0;
 	}
 
 	/**
@@ -189,11 +162,7 @@ public class DemandeValidationConsoTempsAccPers {
 	 * @return un booléen correspondant à cet état
 	 */
 	public boolean isModifieeDateProf() {
-		boolean bool = false;
-		if ((this.etat & DATE_MODIFIEE) != 0) {
-			bool = true;
-		}
-		return bool;
+		return (this.etat & DATE_MODIFIEE) != 0;
 	}
 
 	/**
@@ -202,11 +171,7 @@ public class DemandeValidationConsoTempsAccPers {
 	 * @return un booléen correspondant à cet état
 	 */
 	public boolean isModifieeDureeProf() {
-		boolean bool = false;
-		if ((this.etat & DUREE_MODIFIEE) != 0) {
-			bool = true;
-		}
-		return bool;
+		return (this.etat & DUREE_MODIFIEE) != 0;
 	}
 
 	/**
@@ -215,11 +180,16 @@ public class DemandeValidationConsoTempsAccPers {
 	 * @return un booléen correspondant à cet état
 	 */
 	public boolean isModifieeApProf() {
-		boolean bool = false;
-		if ((this.etat & AP_MODIFIEE) != 0) {
-			bool = true;
-		}
-		return bool;
+		return (this.etat & AP_MODIFIEE) != 0;
+	}
+
+	/**
+	 * Test si la demande est en fin de vie
+	 * 
+	 * @return un booléen correspondant à cet état
+	 */
+	public boolean isFinDeVie() {
+		return (this.etat & FIN_VIE) != 0;
 	}
 
 	// getter/setter
@@ -344,6 +314,7 @@ public class DemandeValidationConsoTempsAccPers {
 				&& !this.isAccepteeEleve() && !this.isRejeteeEleve()
 				&& !this.isValideeProf()) {
 			this.etat = this.etat | VALIDEE_PROF;
+			this.etat = this.etat | FIN_VIE;
 		} else {
 			throw new DVCTAPException(errorReporting());
 		}
@@ -359,6 +330,7 @@ public class DemandeValidationConsoTempsAccPers {
 				&& !this.isAccepteeEleve() && !this.isRejeteeEleve()
 				&& !this.isRefuseeProf()) {
 			this.etat = this.etat | REFUSEE_PROF;
+			this.etat = this.etat | FIN_VIE;
 		} else {
 			throw new DVCTAPException(errorReporting());
 		}
@@ -375,6 +347,7 @@ public class DemandeValidationConsoTempsAccPers {
 				&& !this.isModifieeApProf() && !this.isModifieeDureeProf()
 				&& !this.isModifieeDateProf() && !this.isAnnuleeEleve()) {
 			this.etat = this.etat | ANNULEE_ELEVE;
+			this.etat = this.etat | FIN_VIE;
 		} else {
 			throw new DVCTAPException(errorReporting());
 		}
@@ -463,6 +436,7 @@ public class DemandeValidationConsoTempsAccPers {
 				&& (this.isModifieeApProf() || this.isModifieeDateProf() || this
 						.isModifieeDureeProf())) {
 			this.etat = this.etat | REJETEE_ELEVE;
+			this.etat = this.etat | FIN_VIE;
 		} else {
 			throw new DVCTAPException(errorReporting());
 		}
@@ -484,6 +458,7 @@ public class DemandeValidationConsoTempsAccPers {
 				&& (this.isModifieeApProf() || this.isModifieeDateProf() || this
 						.isModifieeDureeProf())) {
 			this.etat = this.etat | ACCEPTEE_ELEVE;
+			this.etat = this.etat | FIN_VIE;
 		} else {
 			throw new DVCTAPException(errorReporting());
 		}
@@ -497,4 +472,38 @@ public class DemandeValidationConsoTempsAccPers {
 				+ ", eleve=" + eleve + ", etat=" + etat + "]";
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		DemandeValidationConsoTempsAccPers other = (DemandeValidationConsoTempsAccPers) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
 }

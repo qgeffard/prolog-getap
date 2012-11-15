@@ -35,42 +35,54 @@ public class DBManagerGeTAP implements IFManagerGeTAP {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
-	public List<DemandeValidationConsoTempsAccPers> getAllDVCTAPByEleve(User eleve) {
+	public List<DemandeValidationConsoTempsAccPers> getAllDVCTAPByEleve(
+			User eleve) {
 		Long id = eleve.getId();
 		return this.jdbcTemplate.query("select * from dctap where idEleve = "
 				+ id, new DemandeMapper());
 	}
 
-	public List<DemandeValidationConsoTempsAccPers> getAllDVCTAPByProfInterv(User profi) {
+	public List<DemandeValidationConsoTempsAccPers> getAllDVCTAPByProfInterv(
+			User profi) {
 		Long id = profi.getId();
 		return this.jdbcTemplate.query("select * from dctap where idProf = "
 				+ id, new DemandeMapper());
 	}
 
-	public List<DemandeValidationConsoTempsAccPers> getAllDVCTAPByProfPrinc(User profp) {
+	public List<DemandeValidationConsoTempsAccPers> getAllDVCTAPByProfPrinc(
+			User profp) {
 		Long id = profp.getId();
 		return this.jdbcTemplate.query("select * from dctap where idProf = "
 				+ id, new DemandeMapper());
 	}
 
-	public List<DemandeValidationConsoTempsAccPers> getAllDVCTAPByClasse(String nomClasse) {
+	public List<DemandeValidationConsoTempsAccPers> getAllDVCTAPByClasse(
+			String nomClasse) {
 		return this.jdbcTemplate
 				.query("select * from dctap d, user u, classe c where d.idEleve = u.id and u.idClasse = c.id and libelle = 'nomClasse' ",
 						new DemandeMapper());
 	}
 
 	public int getAllDVCTAPByEtat(int etat, Long id) {
-		int count = this.jdbcTemplate
-				.queryForInt(
-						"select count(id) from dctap where Etat = ? and (idProf = ? or idEleve = ?)",
-						new Object[] { etat, id, id });
+		int count = 0;
+		if (etat != 0) {
+			count = this.jdbcTemplate
+					.queryForInt(
+							"select count(id) from dctap where Etat & ? and (idProf = ? or idEleve = ?)",
+							new Object[] { etat, id, id });
+		} else {
+			count = this.jdbcTemplate
+					.queryForInt(
+							"select count(id) from dctap where Etat = 0 and (idProf = ? or idEleve = ?)",
+							new Object[] { id, id });
+		}
 		return count;
 	}
 
 	public int getAllDVCTAPModifByEtat(Long id) {
 		int count = this.jdbcTemplate
 				.queryForInt(
-						"select count(id) from dctap where Etat >=1024 and (idProf = ? or idEleve = ?)",
+						"select count(id) from dctap where Etat >=1024 && !(Etat & 128) and (idProf = ? or idEleve = ?)",
 						new Object[] { id, id });
 		return count;
 	}
@@ -689,8 +701,8 @@ public class DBManagerGeTAP implements IFManagerGeTAP {
 
 	private static final class DemandeMapper implements
 			RowMapper<DemandeValidationConsoTempsAccPers> {
-		public DemandeValidationConsoTempsAccPers mapRow(ResultSet rs, int rowNum)
-				throws SQLException {
+		public DemandeValidationConsoTempsAccPers mapRow(ResultSet rs,
+				int rowNum) throws SQLException {
 			DemandeValidationConsoTempsAccPers dctap = new DemandeValidationConsoTempsAccPers();
 			dctap.setId(rs.getLong("id"));
 			dctap.setAnneeScolaire(rs.getString("anneeScolaire"));
