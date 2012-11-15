@@ -75,7 +75,7 @@ public class AccPersonalise {
 
 	@Override
 	public String toString() {
-		return "AccPersonalise [id=" + id + ", nom=" + nom + ", origineEtat="
+		return "- AccPersonalise [id=" + id + ", nom=" + nom + ", origineEtat="
 				+ origineEtat + ", idUser=" + idUser + ", count=" + count
 				+ ", idEleve=" + idEleve + "]";
 	}

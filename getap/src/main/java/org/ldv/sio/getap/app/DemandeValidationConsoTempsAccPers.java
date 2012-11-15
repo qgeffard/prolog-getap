@@ -323,7 +323,8 @@ public class DemandeValidationConsoTempsAccPers {
 			this.etat = this.etat | FIN_VIE;
 
 			Date dateLog = new Date();
-			logger.info("VALIDEE PAR PROF : " + dateLog + " " + this.toString());
+			logger.info("\n VALIDEE PAR PROF : " + dateLog + "\n "
+					+ this.toString());
 		} else {
 			throw new DVCTAPException(errorReporting());
 		}
@@ -342,7 +343,8 @@ public class DemandeValidationConsoTempsAccPers {
 			this.etat = this.etat | FIN_VIE;
 
 			Date dateLog = new Date();
-			logger.info("REFUSEE PAR PROF : " + dateLog + " " + this.toString());
+			logger.info("\n REFUSEE PAR PROF : " + dateLog + "\n "
+					+ this.toString());
 		} else {
 			throw new DVCTAPException(errorReporting());
 		}
@@ -362,7 +364,7 @@ public class DemandeValidationConsoTempsAccPers {
 			this.etat = this.etat | FIN_VIE;
 
 			Date dateLog = new Date();
-			logger.info("ANNULEE PAR ELEVE : " + dateLog + " "
+			logger.info("\n ANNULEE PAR ELEVE : " + dateLog + "\n "
 					+ this.toString());
 
 		} else {
@@ -383,7 +385,7 @@ public class DemandeValidationConsoTempsAccPers {
 			this.etat = this.etat | MODIFIEE_ELEVE;
 
 			Date dateLog = new Date();
-			logger.info("MODIFICATION PAR ELEVE : " + dateLog + " "
+			logger.info("\n MODIFICATION PAR ELEVE : " + dateLog + "\n "
 					+ this.toString());
 
 		} else {
@@ -405,7 +407,7 @@ public class DemandeValidationConsoTempsAccPers {
 			this.etat = this.etat | DATE_MODIFIEE;
 
 			Date dateLog = new Date();
-			logger.info("MODIFICATION DATE PAR PROF : " + dateLog + " "
+			logger.info("\n MODIFICATION DATE PAR PROF : " + dateLog + "\n "
 					+ this.toString());
 
 		} else {
@@ -427,7 +429,7 @@ public class DemandeValidationConsoTempsAccPers {
 			this.etat = this.etat | DUREE_MODIFIEE;
 
 			Date dateLog = new Date();
-			logger.info("MODIFICATION DUREE PAR PROF : " + dateLog + " "
+			logger.info("\n MODIFICATION DUREE PAR PROF : " + dateLog + "\n "
 					+ this.toString());
 
 		} else {
@@ -449,7 +451,7 @@ public class DemandeValidationConsoTempsAccPers {
 			this.etat = this.etat | AP_MODIFIEE;
 
 			Date dateLog = new Date();
-			logger.info("MODIFICATION AP PAR PROF : " + dateLog + " "
+			logger.info("\n MODIFICATION AP PAR PROF : " + dateLog + "\n "
 					+ this.toString());
 
 		} else {
@@ -476,7 +478,7 @@ public class DemandeValidationConsoTempsAccPers {
 			this.etat = this.etat | FIN_VIE;
 
 			Date dateLog = new Date();
-			logger.info("REJETER PAR ELEVE : " + dateLog + " "
+			logger.info("\n REJETER PAR ELEVE : " + dateLog + "\n "
 					+ this.toString());
 
 		} else {
@@ -503,7 +505,7 @@ public class DemandeValidationConsoTempsAccPers {
 			this.etat = this.etat | FIN_VIE;
 
 			Date dateLog = new Date();
-			logger.info("ACCEPTEE PAR ELEVE : " + dateLog + " "
+			logger.info("\n ACCEPTEE PAR ELEVE : " + dateLog + "\n "
 					+ this.toString());
 		} else {
 			throw new DVCTAPException(errorReporting());
@@ -514,9 +516,9 @@ public class DemandeValidationConsoTempsAccPers {
 	public String toString() {
 		return "DemandeValidationConsoTempsAccPers [id=" + id
 				+ ", anneeScolaire=" + anneeScolaire + ", dateAction="
-				+ dateAction + ", minutes=" + minutes + ", prof=" + prof
-				+ ", accPers=" + accPers + ", eleve=" + eleve + ", etat="
-				+ etat + "]";
+				+ dateAction + ", minutes=" + minutes + ",\r Professeur =\t"
+				+ prof + ",\r AccPers =\t" + accPers + ",\r Eleve =\t" + eleve
+				+ ", etat=" + etat + "]";
 	}
 
 	/*
