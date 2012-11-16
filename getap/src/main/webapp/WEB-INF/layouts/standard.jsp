@@ -29,7 +29,7 @@
 			<% } %>
 		</style>
 		<link rel="stylesheet" href="../../styles/css-framework/jquery-ui.css" type="text/css" media="all" />
-		<link rel="stylesheet" href="../../styles/css-framework/ui.theme.css" type="text/css" media="all" />
+		<link rel="stylesheet" href="../../styles/css-framework/jquery-ui-1.9.1.custom.css" type="text/css" media="all" />
 			
 		<script type="text/javascript" src="../../styles/javascript/prefix.js"></script>
 		<script type="text/javascript" src="../../styles/javascript/fonctions.js"></script>	
@@ -85,11 +85,18 @@
   		
         <script>
 		  $(document).ready(function() {
-		    $("#datepicker" ).datepicker({dateFormat: "yy-mm-dd", 
+			$("#datepicker" ).datepicker({dateFormat: "yy-mm-dd", 
 		    	                          monthNames: ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"],
 		    	                          dayNames: ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"],
-		    	                          dayNamesMin: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"] 
+		    	                          dayNamesMin: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"],
+		    	                          beforeShow: function (textbox, instance) {
+		    	                              instance.dpDiv.css({
+		    	                                      marginTop: (-textbox.offsetHeight-47) + 'px',
+		    	                                      marginLeft: (textbox.offsetWidth+88) + 'px'
+		    	                              });
+		    	                          }
 		    });
+			$("#datepicker").datepicker( "option", "showAnim", 'bounce');
 		  }); 
 		</script>
 		
